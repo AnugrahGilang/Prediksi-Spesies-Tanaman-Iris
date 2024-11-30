@@ -49,5 +49,5 @@ with col2:
 
 st.markdown("---")
 st.markdown(
-    "📌 **Project by Anugrah Gilang Ramadhan** | Source Code: [GitHub](https://github.com/your-repo)"
+    "📌 **Project by Anugrah Gilang Ramadhan** | Source Code: [GitHub](https://github.com/AnugrahGilang/Prediksi-Spesies-Tanaman-Iris)"
 )
