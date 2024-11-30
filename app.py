@@ -1,7 +1,10 @@
 import streamlit as st
 import pandas as pd
-import joblib
-import altair as alt
+import seaborn as sns
+import matplotlib.pyplot as plt
+from sklearn.model_selection import train_test_split
+from sklearn.neighbors import KNeighborsClassifier
+from sklearn.metrics import classification_report
 
 st.set_page_config(page_title="Prediksi Spesies Bunga Iris", layout="wide")
 
@@ -32,8 +35,25 @@ with col1:
 
 with col2:
     st.header("🌼 Hasil Prediksi")
+
+    # Load Dataset dan Training Model
+    df = pd.read_csv("Iris.csv")
+    df.rename(columns={"Species": "species"}, inplace=True)  # Normalisasi kolom
+
+    # Hapus kolom 'Id' yang tidak diperlukan
+    df = df.drop(columns=["Id"], errors="ignore")
+
+    X = df.drop("species", axis=1)
+    y = df["species"]
+    
+    # Split Data
+    X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+    
+    # Train Model
+    model = KNeighborsClassifier(n_neighbors=3)
+    model.fit(X_train, y_train)
+    
     if st.button("Prediksi"):
-        model = joblib.load("iris_knn_model.pkl")
         prediction = model.predict(input_data)
         predicted_species = prediction[0]
         
